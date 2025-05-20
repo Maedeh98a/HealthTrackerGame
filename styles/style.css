@@ -1,0 +1,68 @@
+
+body {
+  padding: 0;
+  text-align: center;
+  margin: 0;
+}
+
+#game-intro {
+  padding: 20px 0px;
+}
+
+#game-container {
+  display: none;
+  width: 100vw;
+  padding: 20px 0px;
+  justify-content: space-around;
+}
+
+#game-screen {
+  display: none;
+  align-content: center;
+  padding: 20px 0px;
+  overflow: hidden;
+  position: relative;
+  background-image: url(../images/game_background.png);
+  background-size: cover;
+ width: 100vw;
+  height: 100vh;
+  animation: slide 5s linear infinite;
+}
+
+@keyframes slide {
+  from{
+background-position: 0px;
+
+  }
+  to{
+     background-position: -1300px;
+  }
+}
+
+#game-end {
+  display: none;
+}
+
+/* .game-intro p {
+  font-size: 18px;
+  font-family: "Verdana";
+}
+
+.logo-img {
+  width: 350px;
+}
+
+.arrows-img {
+  width: 150px;
+}
+
+body button {
+  font-size: 30px;
+  background-color: #870007;
+  color: #fff;
+  padding: 20px 40px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+} */

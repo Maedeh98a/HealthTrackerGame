@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <main>
+      <div id="game-intro">
+        <img src="./images/fat-fit.png" alt="fat-person" />
+        <br />
+        <button id="start-button">start game</button>
+        <p>use the up and down arrow to catch the objects!</p>
+      </div>
+      <div id="game-container">
+        <h2>status</h2>
+        <p>Score:<span id="score">0</span></p>
+        <p>lives:<span id="lives">3</span></p>
+
+        <div id="game-screen"></div>
+      </div>
+      <div id="game-end">
+        <h1>Game Over</h1>
+        <br />
+        <button id="restart-button">Restart</button>
+      </div>
+    </main>
+    <script src="js/obstacle.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
