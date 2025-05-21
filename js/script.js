@@ -6,7 +6,7 @@ window.onload = function (){
     const containerPage = document.getElementById("game-container");
     const screenPage = document.getElementById("game-screen");
 
-    const ourGame = new Game()
+    let ourGame;
     startButton.addEventListener("click", ()=> {
         endPage.style.display = 'none';
         startGame();
@@ -17,6 +17,7 @@ window.onload = function (){
     })
 
     window.addEventListener('keydown', (event) =>{
+        if (!ourGame || !ourGame.player) return;
         if(event.code === "ArrowLeft"){
             
             ourGame.player.directionX = -2;
@@ -36,6 +37,7 @@ window.onload = function (){
     });
 
     window.addEventListener('keyup', (event) =>{
+        if (!ourGame || !ourGame.player) return;
         if(event.code === "ArrowLeft"){
             
             ourGame.player.directionX = 0;
@@ -56,7 +58,7 @@ window.onload = function (){
 
     function startGame(){
         
-        
+        ourGame = new Game()
         ourGame.start();
     }
 }

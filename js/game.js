@@ -1,89 +1,154 @@
-class Game{
-    constructor(){
-        this.startScreen = document.getElementById("game-intro");
-        this.gameScreen = document.getElementById("game-screen");
-        this.gameContainer = document.getElementById("game-container")
-        this.gameEnd = document.getElementById("game-end");
-        this.livesElement = document.getElementById("lives");
-        this.scoreElement = document.getElementById("score")
-        this.player = new Player(this.gameScreen, 
-          50,
-          250,
-          300,
-          450
-        );
-        this.height = 600;
-        this.width = 500;
-        this.obstacles = [new Obstacle(this.gameScreen, 125, 100)];
-        this.score = 0;
-        this.lives = 3;
-        this.isGameOver = false;
-        this.gameIntervalId = null;
-        this.gameLoopFrequency = Math.round(1000 / 60);
-        this.counter = 0;
-      }
-      start(){
+const obstacleImages = [
+  { src: "../images/bicycle.png", type: "good", sort: "activity" },
+  { src: "../images/broccoli.png", type: "good", sort: "food" },
+  { src: "../images/brown_rice.png", type: "good", sort: "food" },
+  { src: "../images/egg.png", type: "good", sort: "food" },
+  { src: "../images/celery.png", type: "good", sort: "food" },
+  { src: "../images/grilled_breast.png", type: "good", sort: "food" },
+  { src: "../images/lentils.png", type: "good", sort: "food" },
+  { src: "../images/soup.png", type: "good", sort: "food" },
+  { src: "../images/swimming.png", type: "good", sort: "activity" },
+  { src: "../images/yogurt.png", type: "good", sort: "food" },
+  { src: "../images/zumba.png", type: "good", sort: "activity" },
+  { src: "../images/training.png", type: "good", sort: "activity" },
+  { src: "../images/whole-grain.png", type: "good", sort: "food" },
+  { src: "../images/green-tea.png", type: "good", sort: "beverage" },
+  { src: "../images/cigar.png", type: "bad", sort: "smoke" },
+  { src: "../images/cola.png", type: "bad", sort: "beverage" },
+  { src: "../images/burger.png", type: "bad", sort: "food" },
+  { src: "../images/french-fries.png", type: "bad", sort: "food" },
+  { src: "../images/ice-cream.png", type: "bad", sort: "food" },
+  { src: "../images/nuggets.png", type: "bad", sort: "food" },
+  { src: "../images/pizza.png", type: "bad", sort: "food" },
+  { src: "../images/sausages.png", type: "bad", sort: "food" },
+  { src: "../images/strawberry-cake.png", type: "bad", sort: "food" },
+  { src: "../images/video-game.png", type: "bad", sort: "activity" },
+];
+class Game {
+  constructor() {
+    this.startScreen = document.getElementById("game-intro");
+    this.gameScreen = document.getElementById("game-screen");
+    this.gameContainer = document.getElementById("game-container");
+    this.gameEnd = document.getElementById("game-end");
+    this.livesElement = document.getElementById("lives");
+    this.scoreElement = document.getElementById("score");
+    this.player = new Player(this.gameScreen, 50, 250, 100, 250);
+    this.height = 600;
+    this.width = 500;
+    this.obstacles = [];
+    this.score = 0;
+    this.lives = 3;
+    this.isGameOver = false;
+    this.gameIntervalId = null;
+    this.gameLoopFrequency = Math.round(1000 / 60);
+    this.counter = 0;
+    this.eatingSound = new Audio("../assets/eat-323883.mp3");
+    this.eatingSound.volume = 0.1;
+    this.drinkingSound = new Audio("../assets/drinking-water-woman-102911.mp3");
+    this.drinkingSound.volume = 0.1;
+    this.activitySound = new Audio("../assets/running-14658.mp3");
+    this.activitySound.volume = 0.1;
+    this.smokingSound = new Audio("../assets/cigarette-lighter-46720.mp3");
+    this.smokingSound.volume = 0.1;
+    this.gameOverSound = new Audio("../assets/gooo-83817.mp3");
+    this.gameOverSound.volume = 0.1;
+    this.winSound = new Audio("../assets/marimba-win-f-2-209688.mp3");
+    this.winSound.volume = 0.1;
+  }
+  start() {
+    this.lives = 3;
+    this.score = 0;
+    this.obstacles = [];
+    this.counter = 0;
+    this.gameScreen.style.height = `${this.height}px`;
+    this.startScreen.style.display = "none";
+    this.gameEnd.style.display = "none";
+    this.gameScreen.style.display = "block";
+    this.gameContainer.style.display = "block";
+    this.livesElement.innerText = this.lives;
+    this.livesElement.style.width = `${this.lives * 33.3}%`;
+    this.scoreElement.innerText = this.score;
+    this.scoreElement.style.width = `${this.score * 20}%`;
 
-        this.gameScreen.style.height = `${this.height}px`;
-        this.startScreen.style.display = 'none';
-        this.gameScreen.style.display = 'block';
-        this.gameContainer.style.display = 'block';
+    this.gameIntervalId = setInterval(() => {
+      this.gameLoop();
+    }, this.gameLoopFrequency);
+  }
+  gameLoop() {
+    console.log("inside the game method");
+    this.update();
+    if (this.isGameOver) {
+      clearInterval(this.gameIntervalId);
+      this.gameOver();
+    }
+  }
+  update() {
+    this.player.move();
+    if (this.counter % 180 === 0) {
+      const randomIndex = Math.floor(Math.random() * obstacleImages.length);
+      const chosenImage = obstacleImages[randomIndex];
+      const newObstacle = new Obstacle(this.gameScreen, 125, 125, chosenImage);
+      this.obstacles.push(newObstacle);
+    }
+    for (let i = 0; i < this.obstacles.length; i++) {
+      const currentObstacle = this.obstacles[i];
+      currentObstacle.move();
 
-        this.gameIntervalId = setInterval(()=>{
-          this.gameLoop();
-        }, this.gameLoopFrequency);
-
-
-      }
-      gameLoop(){
-        console.log("inside the game method");
-        this.update();
-        if(this.isGameOver){
-          clearInterval(this.gameIntervalId);
-          this.gameOver();
+      if (this.player.didCollide(currentObstacle)) {
+        if (currentObstacle.sort === "food") {
+          this.eatingSound.play();
+        } else if (currentObstacle.sort === "beverage") {
+          this.drinkingSound.play();
+        }else if (currentObstacle.sort === "activity") {
+          this.activitySound.play();
+        }
+         else {
+          this.smokingSound.play();
         }
 
-      }
-      update(){
-        this.player.move();
-        if(this.counter % 180 === 0){
-          this.obstacles.push(new Obstacle(this.gameScreen, 125, 200))
-        }
-        for(let i=0; i < this.obstacles.length; i++){
-          const currentObstacle = this.obstacles[i];
-          currentObstacle.move();
-        
-        if(this.player.didCollide(currentObstacle)){
-          console.log("hit!")
-          currentObstacle.element.remove()
-          this.obstacles.splice(i, 1);
-          i--;
-          this.lives -- ;
+        currentObstacle.element.remove();
+        this.obstacles.splice(i, 1);
+        i--;
+        if (currentObstacle.type === "bad") {
+          this.lives--;
           this.livesElement.innerText = this.lives;
+          this.livesElement.style.width = `${this.lives * 33.3}%`;
 
-          if(this.lives === 0){
+          if (this.lives === 0) {
             this.isGameOver = true;
+            this.gameOverSound.play();
+          }
+        } else if (currentObstacle.type === "good") {
+          this.score++;
+          this.scoreElement.innerText = this.score;
+          this.scoreElement.style.width = `${this.score * 20}%`;
+          if (this.score === 5) {
+            this.isGameOver = true;
+            this.winSound.play();
+            const winElement = document.createElement("p");
+            winElement.innerText = "You are win";
+            this.gameEnd.appendChild(winElement);
           }
         }
-        if(currentObstacle.top > 500){
-          this.score ++;
-          this.scoreElement.innerText = this.score
-
-           currentObstacle.element.remove()
-          this.obstacles.splice(i, 1);
-          i--;
-        }
-
-      }}
-
-      gameOver(){
-        this.player.element.remove();
-        this.player = null;
-        this.obstacles.forEach((oneObstacle)=>{
-          oneObstacle.element.remove();
-        })
-        this.obstacles = [];
-        this.gameScreen.style.display = 'none';
-        this.gameEnd.style.display = 'block';
+        continue;
       }
+      if (currentObstacle.left + currentObstacle.width < 0) {
+        currentObstacle.element.remove();
+        this.obstacles.splice(i, 1);
+        i--;
+      }
+    }
+    this.counter++;
+  }
+
+  gameOver() {
+    this.player.element.remove();
+    this.player = null;
+    this.obstacles.forEach((oneObstacle) => {
+      oneObstacle.element.remove();
+    });
+    this.obstacles = [];
+    this.gameScreen.style.display = "none";
+    this.gameEnd.style.display = "block";
+  }
 }

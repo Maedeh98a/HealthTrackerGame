@@ -1,12 +1,15 @@
+
 class Obstacle {
-  constructor(gameScreen, width, height) {
+  constructor(gameScreen, width, height, imageObj) {
     this.gameScreen = gameScreen;
-    this.left = 0;
-    this.top = 0;
+    this.left = 1500;
+    this.top = Math.floor(Math.random() * 400);
     this.width = width;
     this.height = height;
+    this.type = imageObj.type;
+    this.sort = imageObj.sort;
     this.element = document.createElement("img");
-    this.element.src = "../images/cola.png";
+    this.element.src = imageObj.src;
     this.element.style.width = `${this.width}px`;
     this.element.style.height = `${this.height}px`;
     this.element.style.top = `${this.top}px`;
@@ -15,13 +18,13 @@ class Obstacle {
     this.gameScreen.appendChild(this.element);
   }
 
-move() {
-    this.top = this.top + 3;
+  move() {
+    this.left -= 3;
     this.updatePosition();
-}
+  }
 
-updatePosition(){
-    this.element.style.top = `${this.top}px`
-
-}
+  updatePosition() {
+    this.element.style.top = `${this.top}px`;
+    this.element.style.left = `${this.left}px`;
+  }
 }
