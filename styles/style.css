@@ -11,9 +11,10 @@ body {
 
 #game-container {
   display: none;
+  background-color: rgba(255,244,230,255);
   width: 100vw;
   padding: 20px 0px;
-  justify-content: space-around;
+
 }
 
 #game-screen {
@@ -24,7 +25,7 @@ body {
   position: relative;
   background-image: url(../images/game_background.png);
   background-size: cover;
- width: 100vw;
+  width: 100vw;
   height: 100vh;
   animation: slide 5s linear infinite;
 }
@@ -43,46 +44,66 @@ background-position: 0px;
   display: none;
 }
 
-/* .game-intro p {
-  font-size: 18px;
-  font-family: "Verdana";
+h2{
+  text-align: left;
+  margin: 30px;
 }
-
-.logo-img {
-  width: 350px;
-}
-
-.arrows-img {
-  width: 150px;
-}*/
-
 body button {
   font-size: 30px;
-  background-color: #008724;
+  background-color: rgb(225,150,92);
   color: #fff;
   padding: 20px 40px;
   border: 0;
   box-shadow: 0;
   border-radius: 5px;
-  margin-bottom: 20px;
+
+}
+#pause{
+  margin: 10px 70px;
+  background-color: #aaaebd;
+  border: 2px solid #d4837d;
+  font-size: 20px;
 } 
+ 
+ 
 
 .myProgress {
   width: 30%;
-  background-color: grey;
+  background-color: #d4837d;
   border-radius: 10px;
   overflow: hidden;
   margin: 20px;
   height: 30px;
-  text-align: center;
+  padding: 5px;
+  
+
 }
 
-.myBar {
+#score{
   height: 100%;
-  background-color: green;
+  background-color: #645f6a;
+  width: 3%; 
+  color: white;
+  line-height: 30px;
+  transition: width 0.3s ease;
+  
+}
+#lives{
+  height: 100%;
+  background-color: #aaaebd;
   width: 3%; 
   color: white;
   text-align: center;
   line-height: 30px;
   transition: width 0.3s ease;
+  ;
+}
+span {
+ 
+  float: left;
+  top: 50%;
+  color: black;
+  font-weight: bold;
+  margin: 10px 20px;
+  
 }

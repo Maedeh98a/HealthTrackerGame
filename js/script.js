@@ -5,6 +5,7 @@ window.onload = function (){
     const endPage = document.getElementById("game-end");
     const containerPage = document.getElementById("game-container");
     const screenPage = document.getElementById("game-screen");
+    const pauseElement = document.getElementById("pause");
 
     let ourGame;
     startButton.addEventListener("click", ()=> {
@@ -16,6 +17,17 @@ window.onload = function (){
         startGame();
     })
 
+    pauseElement.addEventListener("click", ()=>{
+        if(ourGame){
+            if(ourGame.isPaused){
+                ourGame.resume();
+                pauseElement.innerText = "Pause"
+            }else{
+                ourGame.pause();
+                pauseElement.innerText = "Resume"
+            }
+        }
+    })
     window.addEventListener('keydown', (event) =>{
         if (!ourGame || !ourGame.player) return;
         if(event.code === "ArrowLeft"){

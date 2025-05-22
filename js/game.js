@@ -32,6 +32,7 @@ class Game {
     this.gameEnd = document.getElementById("game-end");
     this.livesElement = document.getElementById("lives");
     this.scoreElement = document.getElementById("score");
+    this.pauseButton = document.getElementById("pause");
     this.player = new Player(this.gameScreen, 50, 250, 100, 250);
     this.height = 600;
     this.width = 500;
@@ -42,6 +43,7 @@ class Game {
     this.gameIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
     this.counter = 0;
+    this.isPaused = false;
     this.eatingSound = new Audio("../assets/eat-323883.mp3");
     this.eatingSound.volume = 0.1;
     this.drinkingSound = new Audio("../assets/drinking-water-woman-102911.mp3");
@@ -65,6 +67,7 @@ class Game {
     this.gameEnd.style.display = "none";
     this.gameScreen.style.display = "block";
     this.gameContainer.style.display = "block";
+    this.pauseButton.style.display = "block";
     this.livesElement.innerText = this.lives;
     this.livesElement.style.width = `${this.lives * 33.3}%`;
     this.scoreElement.innerText = this.score;
@@ -121,12 +124,13 @@ class Game {
         } else if (currentObstacle.type === "good") {
           this.score++;
           this.scoreElement.innerText = this.score;
+          // this.scoreElement.style.textAlign = "center";
           this.scoreElement.style.width = `${this.score * 20}%`;
           if (this.score === 5) {
             this.isGameOver = true;
             this.winSound.play();
             const winElement = document.createElement("p");
-            winElement.innerText = "You are win";
+            winElement.innerText = "You win";
             this.gameEnd.appendChild(winElement);
           }
         }
@@ -144,11 +148,28 @@ class Game {
   gameOver() {
     this.player.element.remove();
     this.player = null;
+    this.pauseButton.style.display = "none";
     this.obstacles.forEach((oneObstacle) => {
       oneObstacle.element.remove();
     });
     this.obstacles = [];
     this.gameScreen.style.display = "none";
     this.gameEnd.style.display = "block";
+  }
+
+  pause(){
+    if(!this.isPaused){
+      clearInterval(this.gameIntervalId);
+      this.isPaused = true;
+  
+    }
+  }
+  resume(){
+    if(this.isPaused){
+      this.gameIntervalId = setInterval(()=>{
+        this.gameLoop();
+      }, this.gameLoopFrequency);
+      this.isPaused = false;
+    }
   }
 }
