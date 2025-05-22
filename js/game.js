@@ -2,8 +2,7 @@
 const BASE_URL = "https://maedeh98a.github.io/HealthTrackerGame";
 
 // local
-// const BASE_URL = "http://127.0.0.1:5500";
-
+ //const BASE_URL = "http://127.0.0.1:5500";
 
 const obstacleImages = [
   { src: BASE_URL + "/images/bicycle.png", type: "good", sort: "activity" },
@@ -37,6 +36,7 @@ class Game {
     this.gameScreen = document.getElementById("game-screen");
     this.gameContainer = document.getElementById("game-container");
     this.gameEnd = document.getElementById("game-end");
+    this.gameEndText = document.getElementById("end-text");
     this.livesElement = document.getElementById("lives");
     this.scoreElement = document.getElementById("score");
     this.pauseButton = document.getElementById("pause");
@@ -53,11 +53,15 @@ class Game {
     this.isPaused = false;
     this.eatingSound = new Audio(BASE_URL + "/assets/eat-323883.mp3");
     this.eatingSound.volume = 0.1;
-    this.drinkingSound = new Audio(BASE_URL + "/assets/drinking-water-woman-102911.mp3");
+    this.drinkingSound = new Audio(
+      BASE_URL + "/assets/drinking-water-woman-102911.mp3"
+    );
     this.drinkingSound.volume = 0.1;
     this.activitySound = new Audio(BASE_URL + "/assets/running-14658.mp3");
     this.activitySound.volume = 0.1;
-    this.smokingSound = new Audio(BASE_URL + "/assets/cigarette-lighter-46720.mp3");
+    this.smokingSound = new Audio(
+      BASE_URL + "/assets/cigarette-lighter-46720.mp3"
+    );
     this.smokingSound.volume = 0.1;
     this.gameOverSound = new Audio(BASE_URL + "/assets/gooo-83817.mp3");
     this.gameOverSound.volume = 0.1;
@@ -109,10 +113,9 @@ class Game {
           this.eatingSound.play();
         } else if (currentObstacle.sort === "beverage") {
           this.drinkingSound.play();
-        }else if (currentObstacle.sort === "activity") {
+        } else if (currentObstacle.sort === "activity") {
           this.activitySound.play();
-        }
-         else {
+        } else {
           this.smokingSound.play();
         }
 
@@ -127,6 +130,7 @@ class Game {
           if (this.lives === 0) {
             this.isGameOver = true;
             this.gameOverSound.play();
+            this.gameEndText.innerText = "😕 Oops! You picked too many unhealthy foods. Try again!";
           }
         } else if (currentObstacle.type === "good") {
           this.score++;
@@ -136,9 +140,9 @@ class Game {
           if (this.score === 5) {
             this.isGameOver = true;
             this.winSound.play();
-            const winElement = document.createElement("p");
-            winElement.innerText = "You win";
-            this.gameEnd.appendChild(winElement);
+        
+            this.gameEndText.innerText= "🎉 You did it! Great job choosing the healthy foods!";
+            
           }
         }
         continue;
@@ -164,16 +168,15 @@ class Game {
     this.gameEnd.style.display = "block";
   }
 
-  pause(){
-    if(!this.isPaused){
+  pause() {
+    if (!this.isPaused) {
       clearInterval(this.gameIntervalId);
       this.isPaused = true;
-  
     }
   }
-  resume(){
-    if(this.isPaused){
-      this.gameIntervalId = setInterval(()=>{
+  resume() {
+    if (this.isPaused) {
+      this.gameIntervalId = setInterval(() => {
         this.gameLoop();
       }, this.gameLoopFrequency);
       this.isPaused = false;
