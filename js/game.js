@@ -1,28 +1,35 @@
+// production
+const BASE_URL = "https://maedeh98a.github.io/HealthTrackerGame";
+
+// local
+// const BASE_URL = "http://127.0.0.1:5500";
+
+
 const obstacleImages = [
-  { src: "/images/bicycle.png", type: "good", sort: "activity" },
-  { src: "/images/broccoli.png", type: "good", sort: "food" },
-  { src: "/images/brown_rice.png", type: "good", sort: "food" },
-  { src: "/images/egg.png", type: "good", sort: "food" },
-  { src: "/images/celery.png", type: "good", sort: "food" },
-  { src: "/images/grilled_breast.png", type: "good", sort: "food" },
-  { src: "/images/lentils.png", type: "good", sort: "food" },
-  { src: "/images/soup.png", type: "good", sort: "food" },
-  { src: "/images/swimming.png", type: "good", sort: "activity" },
-  { src: "/images/yogurt.png", type: "good", sort: "food" },
-  { src: "/images/zumba.png", type: "good", sort: "activity" },
-  { src: "/images/training.png", type: "good", sort: "activity" },
-  { src: "/images/whole-grain.png", type: "good", sort: "food" },
-  { src: "/images/green-tea.png", type: "good", sort: "beverage" },
-  { src: "/images/cigar.png", type: "bad", sort: "smoke" },
-  { src: "/images/cola.png", type: "bad", sort: "beverage" },
-  { src: "/images/burger.png", type: "bad", sort: "food" },
-  { src: "/images/french-fries.png", type: "bad", sort: "food" },
-  { src: "/images/ice-cream.png", type: "bad", sort: "food" },
-  { src: "/images/nuggets.png", type: "bad", sort: "food" },
-  { src: "/images/pizza.png", type: "bad", sort: "food" },
-  { src: "/images/sausages.png", type: "bad", sort: "food" },
-  { src: "/images/strawberry-cake.png", type: "bad", sort: "food" },
-  { src: "/images/video-game.png", type: "bad", sort: "activity" },
+  { src: BASE_URL + "/images/bicycle.png", type: "good", sort: "activity" },
+  { src: BASE_URL + "/images/broccoli.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/brown_rice.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/egg.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/celery.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/grilled_breast.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/lentils.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/soup.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/swimming.png", type: "good", sort: "activity" },
+  { src: BASE_URL + "/images/yogurt.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/zumba.png", type: "good", sort: "activity" },
+  { src: BASE_URL + "/images/training.png", type: "good", sort: "activity" },
+  { src: BASE_URL + "/images/whole-grain.png", type: "good", sort: "food" },
+  { src: BASE_URL + "/images/green-tea.png", type: "good", sort: "beverage" },
+  { src: BASE_URL + "/images/cigar.png", type: "bad", sort: "smoke" },
+  { src: BASE_URL + "/images/cola.png", type: "bad", sort: "beverage" },
+  { src: BASE_URL + "/images/burger.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/french-fries.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/ice-cream.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/nuggets.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/pizza.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/sausages.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/strawberry-cake.png", type: "bad", sort: "food" },
+  { src: BASE_URL + "/images/video-game.png", type: "bad", sort: "activity" },
 ];
 class Game {
   constructor() {
@@ -44,17 +51,17 @@ class Game {
     this.gameLoopFrequency = Math.round(1000 / 60);
     this.counter = 0;
     this.isPaused = false;
-    this.eatingSound = new Audio("assets/eat-323883.mp3");
+    this.eatingSound = new Audio(BASE_URL + "/assets/eat-323883.mp3");
     this.eatingSound.volume = 0.1;
-    this.drinkingSound = new Audio("assets/drinking-water-woman-102911.mp3");
+    this.drinkingSound = new Audio(BASE_URL + "/assets/drinking-water-woman-102911.mp3");
     this.drinkingSound.volume = 0.1;
-    this.activitySound = new Audio("assets/running-14658.mp3");
+    this.activitySound = new Audio(BASE_URL + "/assets/running-14658.mp3");
     this.activitySound.volume = 0.1;
-    this.smokingSound = new Audio("assets/cigarette-lighter-46720.mp3");
+    this.smokingSound = new Audio(BASE_URL + "/assets/cigarette-lighter-46720.mp3");
     this.smokingSound.volume = 0.1;
-    this.gameOverSound = new Audio("assets/gooo-83817.mp3");
+    this.gameOverSound = new Audio(BASE_URL + "/assets/gooo-83817.mp3");
     this.gameOverSound.volume = 0.1;
-    this.winSound = new Audio("assets/marimba-win-f-2-209688.mp3");
+    this.winSound = new Audio(BASE_URL + "/assets/marimba-win-f-2-209688.mp3");
     this.winSound.volume = 0.1;
   }
   start() {
