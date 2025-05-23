@@ -130,7 +130,7 @@ class Game {
           if (this.lives === 0) {
             this.isGameOver = true;
             this.gameOverSound.play();
-            this.gameEndText.innerText = "😕 Oops! You picked too many unhealthy foods. Try again!";
+            this.gameEndText.innerText = "😕 Oops! You picked too many unhealthy choices. Try again!";
           }
         } else if (currentObstacle.type === "good") {
           this.score++;
@@ -141,7 +141,7 @@ class Game {
             this.isGameOver = true;
             this.winSound.play();
         
-            this.gameEndText.innerText= "🎉 You did it! Great job choosing the healthy foods!";
+            this.gameEndText.innerText= "🎉 You did it! Great job choosing the healthy choices!";
             
           }
         }
